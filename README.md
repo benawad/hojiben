@@ -3,9 +3,6 @@
 The hojicha hub for San Francisco. One person trying and ranking every hojicha
 (roasted Japanese green tea) in the city, at [hojiben.com](https://hojiben.com).
 
-Built to rank well in search and to be a clean, structured source that AI agents
-can scrape and cite.
-
 ## Stack
 
 - [Astro](https://astro.build) (static output)
@@ -67,8 +64,3 @@ npm run preview  # serve the build locally
 
 A background dev wrapper is also available: `astro dev --background`, then
 `astro dev stop` / `astro dev status` / `astro dev logs`.
-
-## Analytics
-
-Google Analytics 4 loads in production only. Paste your Measurement ID into
-`gaId` in `src/data/site.ts`; leave it empty to disable.
