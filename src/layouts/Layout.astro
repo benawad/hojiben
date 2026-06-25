@@ -50,7 +50,9 @@ const ICONS: Record<string, string> = {
           <span class="live" aria-hidden="true"></span> brewing
         </span>
         <nav class="tb-nav" aria-label="Primary">
-          <a class="tb-link mono" href="/about" aria-current={here === '/about' ? 'page' : undefined}>about</a>
+          {here !== '/' && (
+            <a class="tb-link mono" href="/about" aria-current={here === '/about' ? 'page' : undefined}>about</a>
+          )}
           <span class="tb-socials">
             {
               SOCIALS.map((s) => (

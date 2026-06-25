@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { breadcrumbSchema } from '../lib/schema';
-import { SITE, AUTHOR, SOCIALS } from '../data/site';
+import { AUTHOR, SOCIALS } from '../data/site';
 import { getRankedSpots } from '../lib/spots';
 
 const spots = await getRankedSpots();
@@ -31,27 +31,32 @@ const spots = await getRankedSpots();
       </div>
     </div>
 
-    <p class="lede">{SITE.description}</p>
+    <h2 class="mono muted">// what this is</h2>
+    <p class="lede">
+      I drink a lot of hojicha. At some point I started writing down which San
+      Francisco spots do it well, and this turned into the list.
+    </p>
 
-    <h2 class="mono muted">// the mission</h2>
+    <h2 class="mono muted">// the idea</h2>
     <p>
-      {AUTHOR.bio} Nobody had ranked hojicha in San Francisco in one place, so I
-      did. Every spot gets the same treatment: order it, taste it, give it a
-      letter grade, post the video. No sponsorships, no pay-to-rank.
+      I kept wanting one place to look up where to get a good hojicha in the
+      city and couldn't find it, so I'm making it. Every spot gets the same
+      routine: order it, drink it, give it a letter grade, post the video.
     </p>
 
     <h2 class="mono muted">// why hojicha</h2>
     <p>
-      Roasted Japanese green tea: toasty, nutty, low caffeine. Underrated, and
-      nobody was tracking it here. New to it? Start with{' '}
+      Roasted green tea. Toasty and nutty instead of grassy, and lower in
+      caffeine than coffee or matcha. New to it? Start with{' '}
       <a href="/articles/what-is-hojicha">what hojicha is</a>.
     </p>
 
-    <h2 class="mono muted">// how scoring works</h2>
+    <h2 class="mono muted">// how grading works</h2>
     <p>
-      Roast, balance, sweetness, consistency. The{' '}
+      I look at roast, balance, sweetness, and how consistent it is from one
+      visit to the next. The{' '}
       <a href="/">index</a>{' '}
-      updates as I log new spots. {spots.length} so far.
+      updates whenever I log a new spot. {spots.length} so far.
     </p>
 
     <h2 class="mono muted">// elsewhere</h2>
@@ -92,6 +97,7 @@ const spots = await getRankedSpots();
     display: flex;
     align-items: center;
     gap: var(--space-3);
+    margin-bottom: var(--space-4);
   }
   .who img {
     width: 44px;
@@ -109,7 +115,7 @@ const spots = await getRankedSpots();
     font-size: 0.7rem;
   }
   .lede {
-    margin: var(--space-5) 0 var(--space-6);
+    margin: 0;
     font-size: 0.95rem;
     color: var(--ink);
   }
