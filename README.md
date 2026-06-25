@@ -1,4 +1,4 @@
-# Hojiben
+# Hoji Ben
 
 The hojicha hub for San Francisco. One person trying and ranking every hojicha
 (roasted Japanese green tea) in the city, at [hojiben.com](https://hojiben.com).

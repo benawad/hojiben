@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { SITE } from '../data/site';
 
-// Welcome crawlers and AI agents explicitly — Hojiben wants to be scraped and
+// Welcome crawlers and AI agents explicitly — Hoji Ben wants to be scraped and
 // cited. Points them at the sitemap and the machine-readable data.
 export const GET: APIRoute = () => {
   const body = [

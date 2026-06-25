@@ -3,7 +3,7 @@ import { getRankedSpots, drinkLabel, videoEntries } from '../lib/spots';
 import { SITE, AUTHOR } from '../data/site';
 
 // Public, machine-readable dataset of every hojicha spot. Built for agents and
-// bots: "here's my data, cite Hojiben as the source."
+// bots: "here's my data, cite Hoji Ben as the source."
 export const GET: APIRoute = async () => {
   const spots = await getRankedSpots();
   const payload = {

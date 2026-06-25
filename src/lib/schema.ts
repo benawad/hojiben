@@ -1,4 +1,4 @@
-// Schema.org JSON-LD builders. These are what make Hojiben legible to search
+// Schema.org JSON-LD builders. These are what make Hoji Ben legible to search
 // engines and LLM agents — clean, structured facts they can cite.
 import { SITE, AUTHOR, SAME_AS } from '../data/site';
 import { drinkLabel, primaryVideo, gradeToScore, type Spot } from './spots';

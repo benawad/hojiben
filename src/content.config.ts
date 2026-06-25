@@ -14,7 +14,7 @@ const spots = defineCollection({
     city: z.string().default('San Francisco'),
     lat: z.number(),
     lng: z.number(),
-    // Letter grade (how Hojiben actually rates). Optional: ungraded spots sort
+    // Letter grade (how Hoji Ben actually rates). Optional: ungraded spots sort
     // last and render as "—" until a grade is added.
     grade: z
       .enum(['S', 'A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F'])
