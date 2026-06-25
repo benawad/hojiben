@@ -27,6 +27,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${spot.data.lat
   path={`/spots/${spot.id}`}
   type="article"
   crumb="all-spots"
+  ogImage={`/og/spots/${spot.id}.png`}
   jsonLd={[
     spotSchema(spot),
     breadcrumbSchema([

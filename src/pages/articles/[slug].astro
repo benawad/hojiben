@@ -27,6 +27,7 @@ const dateStr = article.data.pubDate
   path={`/articles/${article.id}`}
   type="article"
   crumb="field-notes"
+  ogImage={`/og/articles/${article.id}.png`}
   jsonLd={[
     articleSchema({
       title: article.data.title,

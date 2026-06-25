@@ -18,7 +18,7 @@ const {
   title,
   description = SITE.description,
   path,
-  ogImage = '/hojiben.jpg',
+  ogImage = '/og/default.png',
   type = 'website',
   jsonLd,
   noindex = false,
@@ -51,6 +51,9 @@ const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={fullTitle} />
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
