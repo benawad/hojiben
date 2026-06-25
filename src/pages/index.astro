@@ -59,7 +59,6 @@ const sfSpots = spots.filter(isLocal);
             </div>
           </div>
           <p class="who-bio">{AUTHOR.bio}</p>
-          <a class="more mono" href="/about">about → </a>
         </div>
       </div>
     </aside>
@@ -129,18 +128,9 @@ const sfSpots = spots.filter(isLocal);
     font-size: 0.66rem;
   }
   .who-bio {
-    margin: var(--space-3) 0;
+    margin: var(--space-3) 0 0;
     color: var(--ink-soft);
     font-size: 0.8rem;
-  }
-  .more {
-    font-size: 0.72rem;
-    color: var(--ink);
-    border-bottom: 1px solid var(--line-strong);
-    padding-bottom: 1px;
-  }
-  .more:hover {
-    border-color: var(--ink);
   }
 
   @media (max-width: 880px) {

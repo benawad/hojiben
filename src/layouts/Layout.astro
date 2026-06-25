@@ -20,8 +20,6 @@ const { jsonLd, crumb = 'index', ...seo } = Astro.props;
 const pageSchemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 const allSchemas = [personSchema(), websiteSchema(), ...pageSchemas];
 
-const here = Astro.url.pathname;
-
 // Small monochrome glyphs — socials are the one place icons earn their keep.
 const ICONS: Record<string, string> = {
   tiktok:
@@ -50,9 +48,6 @@ const ICONS: Record<string, string> = {
           <span class="live" aria-hidden="true"></span> brewing
         </span>
         <nav class="tb-nav" aria-label="Primary">
-          {here !== '/' && (
-            <a class="tb-link mono" href="/about" aria-current={here === '/about' ? 'page' : undefined}>about</a>
-          )}
           <span class="tb-socials">
             {
               SOCIALS.map((s) => (
@@ -143,20 +138,6 @@ const ICONS: Record<string, string> = {
         display: inline-flex;
         align-items: center;
         gap: var(--space-3);
-      }
-      .tb-link {
-        font-size: 0.72rem;
-        color: var(--ink-muted);
-        padding: 3px 7px;
-        border-radius: var(--radius-sm);
-      }
-      .tb-link:hover {
-        background: var(--hover);
-        color: var(--ink);
-      }
-      .tb-link[aria-current='page'] {
-        background: var(--active);
-        color: var(--ink);
       }
       .tb-socials {
         display: inline-flex;
