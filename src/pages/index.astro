@@ -1,59 +1,150 @@
 ---
-const title = "Hojiben";
+import Layout from '../layouts/Layout.astro';
+import MapPlate from '../components/MapPlate.astro';
+import Leaderboard from '../components/Leaderboard.astro';
+import { getRankedSpots, isLocal } from '../lib/spots';
+import { leaderboardSchema } from '../lib/schema';
+import { SITE, AUTHOR } from '../data/site';
+
+const spots = await getRankedSpots();
+// Leaderboard is SF-only for now; out-of-town spots still have detail pages.
+const sfSpots = spots.filter(isLocal);
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Hojiben is live on Cloudflare Pages." />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-  </head>
-  <body>
-    <main>
-      <p class="eyebrow">hojiben.com</p>
-      <h1>Hello World</h1>
-      <p>Hojiben is live.</p>
-    </main>
-  </body>
-</html>
+<Layout
+  title="Best Hojicha in San Francisco, Ranked"
+  description={SITE.description}
+  path="/"
+  crumb="index"
+  jsonLd={leaderboardSchema(sfSpots)}
+>
+  <div class="body">
+    <section class="col-main">
+      <h1 class="h1">Best hojicha in San Francisco</h1>
+      <p class="intro">
+        A running list of every hojicha I've tried, ranked best to worst.
+      </p>
+
+      <div class="panel">
+        <div class="panel-head">
+          <span class="mono">the_index · {sfSpots.length} spots</span>
+          <span class="mono muted">best → worst</span>
+        </div>
+        <Leaderboard spots={sfSpots} />
+      </div>
+    </section>
+
+    <aside class="col-side">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="mono">sf.map</span>
+          <span class="mono muted">{sfSpots.length} plotted</span>
+        </div>
+        <div class="panel-pad">
+          <MapPlate spots={sfSpots} />
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <span class="mono">readme</span>
+        </div>
+        <div class="panel-pad readme">
+          <div class="who">
+            <img src={AUTHOR.avatar} alt={AUTHOR.name} width="34" height="34" />
+            <div>
+              <p class="who-name">{AUTHOR.name}</p>
+              <p class="who-handle mono muted">{AUTHOR.handle}</p>
+            </div>
+          </div>
+          <p class="who-bio">{AUTHOR.bio}</p>
+          <a class="more mono" href="/about">about → </a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</Layout>
 
 <style>
-  :global(body) {
-    margin: 0;
-    min-height: 100vh;
+  .body {
     display: grid;
-    place-items: center;
-    background: #f7f7f2;
-    color: #141414;
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    grid-template-columns: 1fr 300px;
+    gap: var(--space-5);
+    padding: var(--space-5);
+  }
+  .h1 {
+    margin: 0 0 var(--space-2);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .intro {
+    margin: 0 0 var(--space-4);
+    max-width: 56ch;
+    color: var(--ink-soft);
+    font-size: 0.86rem;
   }
 
-  main {
-    width: min(640px, calc(100vw - 40px));
+  .panel {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--window);
+    overflow: hidden;
+  }
+  .panel + .panel {
+    margin-top: var(--space-4);
+  }
+  .panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px var(--space-3);
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+    font-size: 0.7rem;
+  }
+  .panel-pad {
+    padding: var(--space-3);
   }
 
-  .eyebrow {
-    margin: 0 0 16px;
-    color: #63635c;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+  .readme .who {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
   }
-
-  h1 {
+  .readme img {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+  .who-name {
     margin: 0;
-    font-size: clamp(3rem, 10vw, 7rem);
-    line-height: 0.95;
-    letter-spacing: 0;
+    font-weight: 600;
+    font-size: 0.82rem;
+  }
+  .who-handle {
+    margin: 0;
+    font-size: 0.66rem;
+  }
+  .who-bio {
+    margin: var(--space-3) 0;
+    color: var(--ink-soft);
+    font-size: 0.8rem;
+  }
+  .more {
+    font-size: 0.72rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 1px;
+  }
+  .more:hover {
+    border-color: var(--ink);
   }
 
-  p {
-    margin: 20px 0 0;
-    color: #3c3c36;
-    font-size: 1.125rem;
+  @media (max-width: 880px) {
+    .body {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

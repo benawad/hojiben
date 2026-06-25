@@ -1,0 +1,24 @@
+---
+import { SITE } from '../data/site';
+
+// Google Analytics 4. Renders only in production builds and only when a
+// Measurement ID is set in src/data/site.ts, so dev traffic stays out of GA.
+const gaId = SITE.gaId;
+const enabled = gaId && import.meta.env.PROD;
+---
+
+{
+  enabled && (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+      <script is:inline define:vars={{ gaId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', gaId);
+      </script>
+    </>
+  )
+}

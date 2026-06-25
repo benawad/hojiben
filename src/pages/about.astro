@@ -1,0 +1,149 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { breadcrumbSchema } from '../lib/schema';
+import { SITE, AUTHOR, SOCIALS } from '../data/site';
+import { getRankedSpots } from '../lib/spots';
+
+const spots = await getRankedSpots();
+---
+
+<Layout
+  title="About"
+  description={`${AUTHOR.bio} Hoji Ben is the hub for hojicha in San Francisco: honest, unsponsored rankings of every spot in the city.`}
+  path="/about"
+  crumb="about"
+  jsonLd={breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+  ])}
+>
+  <div class="head">
+    <span class="title mono">about</span>
+    <span class="head-meta mono muted">{spots.length} spots logged</span>
+  </div>
+
+  <div class="pad">
+    <div class="who">
+      <img src={AUTHOR.avatar} alt={AUTHOR.name} width="44" height="44" />
+      <div>
+        <p class="who-name">{AUTHOR.name}</p>
+        <p class="who-handle mono muted">{AUTHOR.handle} · san francisco</p>
+      </div>
+    </div>
+
+    <p class="lede">{SITE.description}</p>
+
+    <h2 class="mono muted">// the mission</h2>
+    <p>
+      {AUTHOR.bio} Nobody had ranked hojicha in San Francisco in one place, so I
+      did. Every spot gets the same treatment: order it, taste it, give it a
+      letter grade, post the video. No sponsorships, no pay-to-rank.
+    </p>
+
+    <h2 class="mono muted">// why hojicha</h2>
+    <p>
+      Roasted Japanese green tea: toasty, nutty, low caffeine. Underrated, and
+      nobody was tracking it here. New to it? Start with{' '}
+      <a href="/articles/what-is-hojicha">what hojicha is</a>.
+    </p>
+
+    <h2 class="mono muted">// how scoring works</h2>
+    <p>
+      Roast, balance, sweetness, consistency. The{' '}
+      <a href="/">index</a>{' '}
+      updates as I log new spots. {spots.length} so far.
+    </p>
+
+    <h2 class="mono muted">// elsewhere</h2>
+    <ul class="links mono">
+      {
+        SOCIALS.map((s) => (
+          <li>
+            <a href={s.url} target="_blank" rel="me noopener">
+              {s.label.toLowerCase()} ↗
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Layout>
+
+<style>
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-2) var(--space-4);
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+  }
+  .title {
+    font-size: 0.78rem;
+  }
+  .head-meta {
+    font-size: 0.7rem;
+  }
+  .pad {
+    padding: var(--space-5);
+    max-width: 600px;
+  }
+  .who {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .who img {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+  .who-name {
+    margin: 0;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .who-handle {
+    margin: 1px 0 0;
+    font-size: 0.7rem;
+  }
+  .lede {
+    margin: var(--space-5) 0 var(--space-6);
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+  h2 {
+    font-size: 0.7rem;
+    text-transform: lowercase;
+    letter-spacing: 0.04em;
+    margin: var(--space-5) 0 var(--space-2);
+  }
+  .pad p {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+  .pad p a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: var(--line-strong);
+  }
+  .links {
+    list-style: none;
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    font-size: 0.78rem;
+  }
+  .links a {
+    color: var(--ink-soft);
+  }
+  .links a:hover {
+    color: var(--ink);
+  }
+</style>

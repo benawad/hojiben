@@ -1,0 +1,232 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { render } from 'astro:content';
+import { getRankedSpots, drinkLabel, drinkShort, isLocal, tiktokId } from '../../lib/spots';
+import { spotSchema, breadcrumbSchema } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const spots = await getRankedSpots();
+  return spots.map((spot, i) => ({
+    params: { slug: spot.id },
+    props: { spot, rank: i + 1, total: spots.length },
+  }));
+}
+
+const { spot, rank, total } = Astro.props;
+const { Content } = await render(spot);
+const ttId = tiktokId(spot);
+const dateStr = spot.data.dateVisited
+  .toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' })
+  .toLowerCase();
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${spot.data.lat},${spot.data.lng}`;
+---
+
+<Layout
+  title={`${spot.data.name} Hojicha Review: ${spot.data.neighborhood}, SF`}
+  description={`${spot.data.name} in ${spot.data.neighborhood}, San Francisco. Hoji Ben's ${drinkLabel(spot.data.drink).toLowerCase()}${spot.data.grade ? ` graded ${spot.data.grade}` : ''}.${spot.data.verdict ? ` ${spot.data.verdict}` : ''}`}
+  path={`/spots/${spot.id}`}
+  type="article"
+  crumb="all-spots"
+  jsonLd={[
+    spotSchema(spot),
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: spot.data.name, path: `/spots/${spot.id}` },
+    ]),
+  ]}
+>
+  <div class="head">
+    <a class="back mono muted" href="/">← index</a>
+    <span class="head-meta mono muted">rank {String(rank).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
+  </div>
+
+  <div class="pad">
+    <div class="top">
+      <div>
+        <h1>{spot.data.name}</h1>
+        <p class="tags mono muted">
+          {spot.data.drink !== 'latte' && `${drinkShort(spot.data.drink).toLowerCase()} · `}
+          {spot.data.neighborhood.toLowerCase()}
+          {!isLocal(spot) && <span class="oot">out of town</span>}
+        </p>
+      </div>
+      <span class="score mono">{spot.data.grade ?? '—'}</span>
+    </div>
+
+    {spot.data.verdict && <p class="verdict">{spot.data.verdict}</p>}
+
+    {
+      ttId && (
+        <div class="panel video">
+          <div class="panel-head">
+            <span class="mono">video.tiktok</span>
+            <a class="mono open" href={spot.data.videos.tiktok} target="_blank" rel="noopener">open ↗</a>
+          </div>
+          <div class="player">
+            <iframe
+              src={`https://www.tiktok.com/player/v1/${ttId}?description=0&music_info=0&rel=0&native_context_menu=0`}
+              title={`${spot.data.name} hojicha review on TikTok`}
+              loading="lazy"
+              allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+              allowfullscreen
+            />
+          </div>
+        </div>
+      )
+    }
+
+    <div class="content"><Content /></div>
+
+    <div class="panel">
+      <div class="panel-head"><span class="mono">details</span></div>
+      <dl>
+        <div><dt class="mono muted">order</dt><dd>{drinkShort(spot.data.drink)}</dd></div>
+        <div><dt class="mono muted">grade</dt><dd>{spot.data.grade ?? 'ungraded'}</dd></div>
+        {spot.data.price && <div><dt class="mono muted">price</dt><dd>{spot.data.price}</dd></div>}
+        <div><dt class="mono muted">area</dt><dd>{spot.data.neighborhood}</dd></div>
+        <div><dt class="mono muted">address</dt><dd><a href={mapsUrl} target="_blank" rel="noopener">{spot.data.address}</a></dd></div>
+        <div><dt class="mono muted">visited</dt><dd>{dateStr}</dd></div>
+      </dl>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-2) var(--space-4);
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+  }
+  .back {
+    font-size: 0.74rem;
+  }
+  .back:hover {
+    color: var(--ink);
+  }
+  .head-meta {
+    font-size: 0.7rem;
+  }
+  .pad {
+    padding: var(--space-5);
+    max-width: 600px;
+  }
+  .top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+  h1 {
+    font-size: 1.3rem;
+    letter-spacing: -0.015em;
+  }
+  .tags {
+    margin: var(--space-1) 0 0;
+    font-size: 0.72rem;
+  }
+  .tags .oot {
+    margin-left: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: 0.6rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 1px 6px;
+    color: var(--ink-muted);
+  }
+  .score {
+    font-size: 1.25rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .score small {
+    font-size: 0.6rem;
+    color: var(--ink-faint);
+  }
+  .verdict {
+    margin: var(--space-4) 0;
+    font-size: 1rem;
+    color: var(--ink);
+    line-height: 1.45;
+  }
+  .video {
+    margin-top: 0;
+    margin-bottom: var(--space-5);
+    max-width: 340px;
+  }
+  .video .open {
+    color: var(--ink-muted);
+    text-decoration: none;
+  }
+  .video .open:hover {
+    color: var(--ink);
+  }
+  .player {
+    padding: var(--space-2);
+    background: var(--panel);
+  }
+  .player iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: #000;
+  }
+  .content {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+  .content :global(p) {
+    margin: 0 0 var(--space-4);
+  }
+  .panel {
+    margin-top: var(--space-5);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: 7px var(--space-3);
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+    font-size: 0.7rem;
+  }
+  dl {
+    margin: 0;
+  }
+  dl > div {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: var(--space-3);
+    padding: 7px var(--space-3);
+    border-bottom: 1px solid var(--line);
+    font-size: 0.82rem;
+  }
+  dl > div:last-child {
+    border-bottom: 0;
+  }
+  dt {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-top: 2px;
+  }
+  dd {
+    margin: 0;
+  }
+  dd a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: var(--line-strong);
+  }
+</style>

@@ -1,0 +1,119 @@
+---
+import { drinkShort, isLocal, type Spot } from '../lib/spots';
+
+interface Props {
+  spots: Spot[];
+  limit?: number;
+}
+const { spots, limit } = Astro.props;
+const rows = limit ? spots.slice(0, limit) : spots;
+---
+
+<div class="board" role="table" aria-label="Hojicha ranking">
+  <div class="hrow mono muted" role="row">
+    <span role="columnheader">#</span>
+    <span role="columnheader">spot</span>
+    <span class="r" role="columnheader">grade</span>
+  </div>
+  <ol>
+    {
+      rows.map((spot, i) => (
+        <li>
+          <a class="row" href={`/spots/${spot.id}`} role="row">
+            <span class="rank mono">{String(i + 1).padStart(2, '0')}</span>
+            <span class="mid">
+              <span class="name">
+                {spot.data.name}
+                {!isLocal(spot) && <span class="oot mono">out of town</span>}
+              </span>
+              <span class="meta mono muted">
+                {spot.data.drink !== 'latte' && `${drinkShort(spot.data.drink).toLowerCase()} · `}
+                {spot.data.neighborhood.toLowerCase()}
+              </span>
+            </span>
+            <span class="score mono">{spot.data.grade ?? '—'}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style>
+  .board {
+    font-size: 0.82rem;
+  }
+  .hrow,
+  .row {
+    display: grid;
+    grid-template-columns: 26px 1fr auto;
+    gap: var(--space-3);
+    align-items: center;
+  }
+  .hrow {
+    padding: 6px var(--space-3);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid var(--line);
+  }
+  .hrow .r {
+    text-align: right;
+  }
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .row {
+    padding: 8px var(--space-3);
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+  }
+  li:last-child .row {
+    border-bottom: 0;
+  }
+  .row:hover {
+    background: var(--hover);
+  }
+  .rank {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+  }
+  .row:hover .rank {
+    color: var(--ink-muted);
+  }
+  .mid {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+  .name {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 600;
+    font-size: 0.84rem;
+  }
+  .oot {
+    font-size: 0.56rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    color: var(--ink-muted);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 1px 6px;
+    white-space: nowrap;
+  }
+  .meta {
+    font-size: 0.66rem;
+  }
+  .score {
+    font-size: 0.84rem;
+    font-weight: 500;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+</style>

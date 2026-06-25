@@ -1,0 +1,116 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbSchema } from '../../lib/schema';
+
+const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).toLowerCase();
+---
+
+<Layout
+  title="Hojicha Field Notes"
+  description="Guides to hojicha: what it is, how it compares to matcha, and where to find the best in San Francisco."
+  path="/articles"
+  crumb="field-notes"
+  jsonLd={breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Field Notes', path: '/articles' },
+  ])}
+>
+  <div class="head">
+    <span class="title mono">field-notes</span>
+    <span class="head-meta mono muted">{articles.length} entries</span>
+  </div>
+  <div class="pad">
+    <p class="intro">
+      Notes on hojicha: what it is, how it differs from matcha, and where to
+      drink the best of it. Mostly so I can stop explaining it in person.
+    </p>
+    <ul class="notes">
+      {
+        articles.map((a) => (
+          <li>
+            <a href={`/articles/${a.id}`}>
+              <span class="n-date mono muted">{fmt(a.data.pubDate)}</span>
+              <span class="n-body">
+                <span class="n-title">{a.data.title}</span>
+                <span class="n-desc">{a.data.description}</span>
+              </span>
+              <span class="n-arr mono muted">→</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Layout>
+
+<style>
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-2) var(--space-4);
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+  }
+  .title {
+    font-size: 0.78rem;
+  }
+  .head-meta {
+    font-size: 0.7rem;
+  }
+  .pad {
+    padding: var(--space-5);
+    max-width: 760px;
+  }
+  .intro {
+    margin: 0 0 var(--space-5);
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+  }
+  .notes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .notes a {
+    display: grid;
+    grid-template-columns: 92px 1fr auto;
+    gap: var(--space-3);
+    align-items: baseline;
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--line);
+  }
+  .notes a:hover {
+    background: var(--hover);
+  }
+  .n-date {
+    font-size: 0.68rem;
+    padding-top: 2px;
+  }
+  .n-body {
+    min-width: 0;
+  }
+  .n-title {
+    display: block;
+    font-weight: 600;
+    font-size: 0.88rem;
+  }
+  .n-desc {
+    display: block;
+    margin-top: 2px;
+    color: var(--ink-muted);
+    font-size: 0.8rem;
+  }
+  .n-arr {
+    color: var(--ink-faint);
+  }
+  .notes a:hover .n-arr {
+    color: var(--ink);
+  }
+</style>
