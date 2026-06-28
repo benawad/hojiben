@@ -5,6 +5,19 @@ import { drinkLabel, primaryVideo, gradeToScore, type Spot } from './spots';
 
 const abs = (path: string) => new URL(path, SITE.url).toString();
 
+function spotVideoSchema(spot: Spot, video: string, name: string) {
+  return {
+    '@type': 'VideoObject',
+    name,
+    contentUrl: video,
+    uploadDate: spot.data.dateVisited.toISOString().slice(0, 10),
+    thumbnailUrl: abs(`/og/spots/${spot.id}.png`),
+    description:
+      spot.data.verdict ??
+      `${spot.data.name} hojicha ${drinkLabel(spot.data.drink).toLowerCase()} review in ${spot.data.neighborhood}, ${SITE.city}.`,
+  };
+}
+
 export function personSchema() {
   return {
     '@context': 'https://schema.org',
@@ -72,11 +85,11 @@ export function spotSchema(spot: Spot) {
               bestRating: 10,
               worstRating: 0,
             },
-            ...(video ? { associatedMedia: { '@type': 'VideoObject', contentUrl: video, name: `${spot.data.name} hojicha review` } } : {}),
+            ...(video ? { associatedMedia: spotVideoSchema(spot, video, `${spot.data.name} hojicha review`) } : {}),
           },
         }
       : video
-        ? { subjectOf: { '@type': 'VideoObject', contentUrl: video, name: `${spot.data.name} hojicha` } }
+        ? { subjectOf: spotVideoSchema(spot, video, `${spot.data.name} hojicha`) }
         : {}),
   };
 }
