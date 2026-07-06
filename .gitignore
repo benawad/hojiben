@@ -25,3 +25,4 @@ pnpm-debug.log*
 
 # local agent/tool settings
 .claude/
+.codex/skills/hojiben-repurpose-update/secrets.local.md

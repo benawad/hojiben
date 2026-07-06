@@ -2,6 +2,7 @@
 title: Hojicha Soft Serve in San Francisco
 description: Hojicha soft serve is roasted-tea ice cream, and it's still rare in San Francisco. What it is, what good looks like, and where my search stands.
 pubDate: 2026-06-24
+updatedDate: 2026-07-05
 ---
 
 Hojicha soft serve is roasted green tea in frozen form: toasty, a little nutty,
@@ -23,9 +24,9 @@ shows up as the occasional swirl or seasonal flavor, if at all.
 
 ## Where my search stands
 
-Everything I've ranked so far has been a latte, not soft serve. I haven't found a
-hojicha soft serve in San Francisco worth ranking yet. When I do, it goes here
-and on the [main list](/). If you know one, that's what the [links](/about) are
-for.
+Update: I tried the hojicha soft serve at
+[KISS of Matcha](/spots/kiss-of-matcha). It is very strong and intense in a good
+way, with excellent tea flavor, and it landed at A+ as the first soft-serve
+entry on the [main list](/).
 
 New to hojicha? Start with [what it is](/articles/what-is-hojicha).

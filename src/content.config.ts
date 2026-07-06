@@ -8,12 +8,12 @@ const spots = defineCollection({
   schema: z.object({
     name: z.string(),
     neighborhood: z.string(),
-    address: z.string(),
+    address: z.string().optional(),
     // City; anything other than San Francisco is tagged "out of town" and kept
     // off the SF map.
     city: z.string().default('San Francisco'),
-    lat: z.number(),
-    lng: z.number(),
+    lat: z.number().optional(),
+    lng: z.number().optional(),
     // Letter grade (how Hoji Ben actually rates). Optional: ungraded spots sort
     // last and render as "—" until a grade is added.
     grade: z

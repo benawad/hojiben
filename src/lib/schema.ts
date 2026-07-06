@@ -1,7 +1,7 @@
 // Schema.org JSON-LD builders. These are what make Hoji Ben legible to search
 // engines and LLM agents — clean, structured facts they can cite.
 import { SITE, AUTHOR, SAME_AS } from '../data/site';
-import { drinkLabel, primaryVideo, gradeToScore, type Spot } from './spots';
+import { drinkLabel, hasCoordinates, primaryVideo, gradeToScore, type Spot } from './spots';
 
 const abs = (path: string) => new URL(path, SITE.url).toString();
 
@@ -10,7 +10,7 @@ function spotVideoSchema(spot: Spot, video: string, name: string) {
     '@type': 'VideoObject',
     name,
     contentUrl: video,
-    uploadDate: spot.data.dateVisited.toISOString().slice(0, 10),
+    uploadDate: spot.data.dateVisited.toISOString(),
     thumbnailUrl: abs(`/og/spots/${spot.id}.png`),
     description:
       spot.data.verdict ??
@@ -55,18 +55,26 @@ export function spotSchema(spot: Spot) {
     '@type': 'FoodEstablishment',
     '@id': `${url}#place`,
     name: spot.data.name,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: spot.data.address,
-      addressLocality: SITE.city,
-      addressRegion: SITE.region,
-      addressCountry: SITE.country,
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: spot.data.lat,
-      longitude: spot.data.lng,
-    },
+    ...(spot.data.address
+      ? {
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: spot.data.address,
+            addressLocality: spot.data.city,
+            addressRegion: SITE.region,
+            addressCountry: SITE.country,
+          },
+        }
+      : {}),
+    ...(hasCoordinates(spot)
+      ? {
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: spot.data.lat,
+            longitude: spot.data.lng,
+          },
+        }
+      : {}),
     servesCuisine: 'Hojicha',
     url,
     // Only emit a Review (with rating) once the spot is actually graded.

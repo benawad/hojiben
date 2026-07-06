@@ -6,5 +6,5 @@ export const onRequest: PagesFunction = async ({ request, next }) => {
     return Response.redirect(url.toString(), 301);
   }
 
-  return next();
+  return await next();
 };

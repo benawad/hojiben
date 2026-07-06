@@ -1,5 +1,5 @@
 ---
-import { drinkLabel, isLocal, type Spot } from '../lib/spots';
+import { drinkLabel, hasCoordinates, isLocal, type Spot } from '../lib/spots';
 
 interface Props {
   spots: Spot[];
@@ -14,13 +14,13 @@ const S = 37.708;
 const clamp = (n: number) => Math.max(3, Math.min(97, n));
 // Keep the leaderboard rank, but only plot San Francisco spots.
 const placed = spots
+  .filter((spot) => isLocal(spot) && hasCoordinates(spot))
   .map((spot, i) => ({
     spot,
     rank: i + 1,
     x: clamp(((spot.data.lng - W) / (E - W)) * 100),
     y: clamp(((N - spot.data.lat) / (N - S)) * 100),
-  }))
-  .filter((p) => isLocal(p.spot));
+  }));
 ---
 
 <div class="map">

@@ -30,6 +30,12 @@ export function isLocal(spot: Spot): boolean {
   return spot.data.city === 'San Francisco';
 }
 
+export function hasCoordinates(spot: Spot): spot is Spot & {
+  data: Spot['data'] & { lat: number; lng: number };
+} {
+  return typeof spot.data.lat === 'number' && typeof spot.data.lng === 'number';
+}
+
 /** TikTok video id parsed from a /video/<id> URL, for embedding. */
 export function tiktokId(spot: Spot): string | undefined {
   const url = spot.data.videos.tiktok;

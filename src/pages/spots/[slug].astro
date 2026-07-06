@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { render } from 'astro:content';
-import { getRankedSpots, drinkLabel, drinkShort, isLocal, tiktokId } from '../../lib/spots';
+import { getRankedSpots, drinkLabel, drinkShort, hasCoordinates, isLocal, tiktokId } from '../../lib/spots';
 import { spotSchema, breadcrumbSchema } from '../../lib/schema';
 
 export async function getStaticPaths() {
@@ -18,7 +18,9 @@ const ttId = tiktokId(spot);
 const dateStr = spot.data.dateVisited
   .toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' })
   .toLowerCase();
-const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${spot.data.lat},${spot.data.lng}`;
+const mapsUrl = hasCoordinates(spot)
+  ? `https://www.google.com/maps/search/?api=1&query=${spot.data.lat},${spot.data.lng}`
+  : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${spot.data.name} ${spot.data.city}`)}`;
 ---
 
 <Layout
@@ -85,7 +87,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${spot.data.lat
         <div><dt class="mono muted">grade</dt><dd>{spot.data.grade ?? 'ungraded'}</dd></div>
         {spot.data.price && <div><dt class="mono muted">price</dt><dd>{spot.data.price}</dd></div>}
         <div><dt class="mono muted">area</dt><dd>{spot.data.neighborhood}</dd></div>
-        <div><dt class="mono muted">address</dt><dd><a href={mapsUrl} target="_blank" rel="noopener">{spot.data.address}</a></dd></div>
+        {spot.data.address && <div><dt class="mono muted">address</dt><dd><a href={mapsUrl} target="_blank" rel="noopener">{spot.data.address}</a></dd></div>}
         <div><dt class="mono muted">visited</dt><dd>{dateStr}</dd></div>
       </dl>
     </div>

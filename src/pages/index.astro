@@ -2,13 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import MapPlate from '../components/MapPlate.astro';
 import Leaderboard from '../components/Leaderboard.astro';
-import { getRankedSpots, isLocal } from '../lib/spots';
+import { getRankedSpots, hasCoordinates, isLocal } from '../lib/spots';
 import { leaderboardSchema } from '../lib/schema';
 import { SITE, AUTHOR } from '../data/site';
 
 const spots = await getRankedSpots();
 // Leaderboard is SF-only for now; out-of-town spots still have detail pages.
 const sfSpots = spots.filter(isLocal);
+const mappedSpots = sfSpots.filter(hasCoordinates);
 ---
 
 <Layout
@@ -39,7 +40,7 @@ const sfSpots = spots.filter(isLocal);
       <div class="panel">
         <div class="panel-head">
           <span class="mono">sf.map</span>
-          <span class="mono muted">{sfSpots.length} plotted</span>
+          <span class="mono muted">{mappedSpots.length} plotted</span>
         </div>
         <div class="panel-pad">
           <MapPlate spots={sfSpots} />
