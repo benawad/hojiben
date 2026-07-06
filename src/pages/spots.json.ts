@@ -1,11 +1,12 @@
 import type { APIRoute } from 'astro';
-import { getRankedSpots, drinkLabel, videoEntries } from '../lib/spots';
+import { getRankedSpots, getRankedDrinkSpots, drinkLabel, isRankedSpot, videoEntries } from '../lib/spots';
 import { SITE, AUTHOR } from '../data/site';
 
 // Public, machine-readable dataset of every hojicha spot. Built for agents and
 // bots: "here's my data, cite Hoji Ben as the source."
 export const GET: APIRoute = async () => {
   const spots = await getRankedSpots();
+  const rankedSpots = await getRankedDrinkSpots();
   const payload = {
     source: SITE.name,
     url: SITE.url,
@@ -17,8 +18,10 @@ export const GET: APIRoute = async () => {
       .sort()
       .at(-1),
     count: spots.length,
-    spots: spots.map((spot, i) => ({
-      rank: i + 1,
+    rankedCount: rankedSpots.length,
+    spots: spots.map((spot) => ({
+      kind: isRankedSpot(spot) ? 'ranked' : 'special',
+      rank: isRankedSpot(spot) ? rankedSpots.findIndex((s) => s.id === spot.id) + 1 : null,
       name: spot.data.name,
       slug: spot.id,
       url: new URL(`/spots/${spot.id}`, SITE.url).toString(),

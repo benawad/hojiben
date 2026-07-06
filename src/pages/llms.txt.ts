@@ -1,12 +1,13 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { getRankedSpots, drinkLabel } from '../lib/spots';
+import { getRankedDrinkSpots, getSpecialItems, drinkLabel } from '../lib/spots';
 import { SITE, AUTHOR, SOCIALS } from '../data/site';
 
 // llms.txt — a plain-text index written for LLMs and AI agents.
 // Spec: https://llmstxt.org
 export const GET: APIRoute = async () => {
-  const spots = await getRankedSpots();
+  const spots = await getRankedDrinkSpots();
+  const specialItems = await getSpecialItems();
   const articles = (
     await getCollection('articles', ({ data }) => !data.draft)
   ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -46,6 +47,19 @@ export const GET: APIRoute = async () => {
     );
   });
   lines.push('');
+
+  if (specialItems.length > 0) {
+    lines.push('## Special hojicha items (not ranked with drinks)');
+    lines.push('');
+    specialItems.forEach((spot) => {
+      const rating = spot.data.grade ? `Grade ${spot.data.grade}` : 'ungraded';
+      const verdict = spot.data.verdict ? ` ${spot.data.verdict}` : '';
+      lines.push(
+        `- [${spot.data.name}](${abs(`/spots/${spot.id}`)}): ${rating} · ${drinkLabel(spot.data.drink)} · ${spot.data.neighborhood}.${verdict}`
+      );
+    });
+    lines.push('');
+  }
 
   lines.push('## How grades work');
   lines.push('');

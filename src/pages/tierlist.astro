@@ -1,9 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getRankedSpots, isLocal, TIERS } from '../lib/spots';
+import { getRankedDrinkSpots, isLocal, TIERS } from '../lib/spots';
 import { leaderboardSchema, breadcrumbSchema } from '../lib/schema';
 
-const spots = await getRankedSpots();
+const spots = await getRankedDrinkSpots();
 
 const rows = TIERS.map((t) => ({
   tier: t.tier,

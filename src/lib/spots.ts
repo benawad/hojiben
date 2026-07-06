@@ -30,6 +30,15 @@ export function isLocal(spot: Spot): boolean {
   return spot.data.city === 'San Francisco';
 }
 
+/** True for items that belong in the drink leaderboard. */
+export function isRankedSpot(spot: Spot): boolean {
+  return spot.data.drink !== 'softserve';
+}
+
+export function isSpecialItem(spot: Spot): boolean {
+  return !isRankedSpot(spot);
+}
+
 export function hasCoordinates(spot: Spot): spot is Spot & {
   data: Spot['data'] & { lat: number; lng: number };
 } {
@@ -85,6 +94,14 @@ export async function getRankedSpots(): Promise<Spot[]> {
     if (ra === rb) return b.data.dateVisited.valueOf() - a.data.dateVisited.valueOf();
     return ra - rb;
   });
+}
+
+export async function getRankedDrinkSpots(): Promise<Spot[]> {
+  return (await getRankedSpots()).filter(isRankedSpot);
+}
+
+export async function getSpecialItems(): Promise<Spot[]> {
+  return (await getRankedSpots()).filter(isSpecialItem);
 }
 
 /** First video URL available for a spot, preferring TikTok. */

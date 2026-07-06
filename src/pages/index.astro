@@ -2,11 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import MapPlate from '../components/MapPlate.astro';
 import Leaderboard from '../components/Leaderboard.astro';
-import { getRankedSpots, hasCoordinates, isLocal } from '../lib/spots';
+import { getRankedDrinkSpots, getSpecialItems, drinkShort, hasCoordinates, isLocal } from '../lib/spots';
 import { leaderboardSchema } from '../lib/schema';
 import { SITE, AUTHOR } from '../data/site';
 
-const spots = await getRankedSpots();
+const spots = await getRankedDrinkSpots();
+const specialItems = (await getSpecialItems()).filter(isLocal);
 // Leaderboard is SF-only for now; out-of-town spots still have detail pages.
 const sfSpots = spots.filter(isLocal);
 const mappedSpots = sfSpots.filter(hasCoordinates);
@@ -34,6 +35,30 @@ const mappedSpots = sfSpots.filter(hasCoordinates);
         </div>
         <Leaderboard spots={sfSpots} />
       </div>
+
+      {
+        specialItems.length > 0 && (
+          <div class="panel">
+            <div class="panel-head">
+              <span class="mono">special_items · {specialItems.length}</span>
+              <span class="mono muted">not ranked</span>
+            </div>
+            <div class="special-list">
+              {specialItems.map((spot) => (
+                <a class="special-row" href={`/spots/${spot.id}`}>
+                  <span class="special-main">
+                    <span class="special-name">{spot.data.name}</span>
+                    <span class="special-meta mono muted">
+                      {drinkShort(spot.data.drink).toLowerCase()} · {spot.data.neighborhood.toLowerCase()}
+                    </span>
+                  </span>
+                  <span class="score mono">{spot.data.grade ?? '—'}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      }
     </section>
 
     <aside class="col-side">
@@ -106,6 +131,39 @@ const mappedSpots = sfSpots.filter(hasCoordinates);
   }
   .panel-pad {
     padding: var(--space-3);
+  }
+  .special-list {
+    display: grid;
+  }
+  .special-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: 8px var(--space-3);
+    color: var(--ink);
+  }
+  .special-row:hover {
+    background: var(--hover);
+  }
+  .special-main {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+  .special-name {
+    font-weight: 600;
+    font-size: 0.84rem;
+  }
+  .special-meta {
+    font-size: 0.66rem;
+  }
+  .score {
+    font-size: 0.84rem;
+    font-weight: 500;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
   }
 
   .readme .who {

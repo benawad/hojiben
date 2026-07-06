@@ -1,14 +1,28 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { render } from 'astro:content';
-import { getRankedSpots, drinkLabel, drinkShort, hasCoordinates, isLocal, tiktokId } from '../../lib/spots';
+import {
+  getRankedSpots,
+  getRankedDrinkSpots,
+  drinkLabel,
+  drinkShort,
+  hasCoordinates,
+  isLocal,
+  isRankedSpot,
+  tiktokId,
+} from '../../lib/spots';
 import { spotSchema, breadcrumbSchema } from '../../lib/schema';
 
 export async function getStaticPaths() {
   const spots = await getRankedSpots();
-  return spots.map((spot, i) => ({
+  const rankedSpots = await getRankedDrinkSpots();
+  return spots.map((spot) => ({
     params: { slug: spot.id },
-    props: { spot, rank: i + 1, total: spots.length },
+    props: {
+      spot,
+      rank: isRankedSpot(spot) ? rankedSpots.findIndex((s) => s.id === spot.id) + 1 : undefined,
+      total: rankedSpots.length,
+    },
   }));
 }
 
@@ -40,7 +54,9 @@ const mapsUrl = hasCoordinates(spot)
 >
   <div class="head">
     <a class="back mono muted" href="/">← index</a>
-    <span class="head-meta mono muted">rank {String(rank).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
+    <span class="head-meta mono muted">
+      {rank ? `rank ${String(rank).padStart(2, '0')} / ${String(total).padStart(2, '0')}` : 'special item'}
+    </span>
   </div>
 
   <div class="pad">
