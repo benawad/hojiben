@@ -40,7 +40,7 @@ const mapsUrl = hasCoordinates(spot)
 <Layout
   title={`${spot.data.name} Hojicha Review: ${spot.data.neighborhood}, SF`}
   description={`${spot.data.name} in ${spot.data.neighborhood}, San Francisco. Hoji Ben's ${drinkLabel(spot.data.drink).toLowerCase()}${spot.data.grade ? ` graded ${spot.data.grade}` : ''}.${spot.data.verdict ? ` ${spot.data.verdict}` : ''}`}
-  path={`/spots/${spot.id}`}
+  path={`/spots/${spot.id}/`}
   type="article"
   crumb="all-spots"
   ogImage={`/og/spots/${spot.id}.png`}
@@ -48,7 +48,7 @@ const mapsUrl = hasCoordinates(spot)
     spotSchema(spot),
     breadcrumbSchema([
       { name: 'Home', path: '/' },
-      { name: spot.data.name, path: `/spots/${spot.id}` },
+      { name: spot.data.name, path: `/spots/${spot.id}/` },
     ]),
   ]}
 >

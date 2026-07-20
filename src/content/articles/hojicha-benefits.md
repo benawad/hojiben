@@ -18,7 +18,7 @@ wellness claims thrown at it, so here's the honest version.
 
 This is the real one. Roasting breaks down most of the caffeine, so hojicha is
 gentle: a cup is roughly 7 to 25 mg, against about 95 for coffee. That's why it
-works late in the day. More on the [caffeine](/articles/hojicha-caffeine).
+works late in the day. More on the [caffeine](/articles/hojicha-caffeine/).
 
 ## Some antioxidants, fewer than matcha
 

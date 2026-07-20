@@ -25,7 +25,7 @@ const SHADE: Record<string, { bg: string; fg: string }> = {
 <Layout
   title="Hojicha Tier List: San Francisco"
   description="Every San Francisco hojicha Hoji Ben has tried, sorted into a tier list from S down to F."
-  path="/tierlist"
+  path="/tierlist/"
   crumb="tierlist"
   jsonLd={[
     leaderboardSchema(spots),
@@ -58,7 +58,7 @@ const SHADE: Record<string, { bg: string; fg: string }> = {
                 <span class="empty mono muted">—</span>
               ) : (
                 row.spots.map((s) => (
-                  <a class="chip" href={`/spots/${s.id}`} data-oot={!isLocal(s) ? 'true' : undefined}>
+                  <a class="chip" href={`/spots/${s.id}/`} data-oot={!isLocal(s) ? 'true' : undefined}>
                     <span class="chip-name">{s.data.name}</span>
                     {!isLocal(s) && <span class="chip-oot mono">out of town</span>}
                     <span class="chip-grade mono">{s.data.grade}</span>
@@ -76,7 +76,7 @@ const SHADE: Record<string, { bg: string; fg: string }> = {
             <div class="tier tier-q">?</div>
             <div class="band">
               {ungraded.map((s) => (
-                <a class="chip" href={`/spots/${s.id}`}>
+                <a class="chip" href={`/spots/${s.id}/`}>
                   <span class="chip-name">{s.data.name}</span>
                   <span class="chip-grade mono muted">ungraded</span>
                 </a>

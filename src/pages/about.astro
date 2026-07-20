@@ -10,11 +10,11 @@ const spots = await getRankedSpots();
 <Layout
   title="About"
   description={`${AUTHOR.bio} Hoji Ben is the hub for hojicha in San Francisco: honest, unsponsored rankings of every spot in the city.`}
-  path="/about"
+  path="/about/"
   crumb="about"
   jsonLd={breadcrumbSchema([
     { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
+    { name: 'About', path: '/about/' },
   ])}
 >
   <div class="head">
@@ -48,7 +48,7 @@ const spots = await getRankedSpots();
     <p>
       Roasted green tea. Toasty and nutty instead of grassy, and lower in
       caffeine than coffee or matcha. New to it? Start with{' '}
-      <a href="/articles/what-is-hojicha">what hojicha is</a>.
+      <a href="/articles/what-is-hojicha/">what hojicha is</a>.
     </p>
 
     <h2 class="mono muted">// how grading works</h2>

@@ -2,8 +2,9 @@
 // engines and LLM agents — clean, structured facts they can cite.
 import { SITE, AUTHOR, SAME_AS } from '../data/site';
 import { drinkLabel, hasCoordinates, primaryVideo, gradeToScore, type Spot } from './spots';
+import { siteUrl } from './urls';
 
-const abs = (path: string) => new URL(path, SITE.url).toString();
+const abs = siteUrl;
 
 function spotVideoSchema(spot: Spot, video: string, name: string) {
   return {
@@ -48,7 +49,7 @@ export function websiteSchema() {
 
 /** A FoodEstablishment + nested Review for one spot. */
 export function spotSchema(spot: Spot) {
-  const url = abs(`/spots/${spot.id}`);
+  const url = abs(`/spots/${spot.id}/`);
   const video = primaryVideo(spot);
   return {
     '@context': 'https://schema.org',
@@ -115,7 +116,7 @@ export function leaderboardSchema(spots: Spot[]) {
     itemListElement: spots.map((spot, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      url: abs(`/spots/${spot.id}`),
+      url: abs(`/spots/${spot.id}/`),
       name: `${spot.data.name}: ${drinkLabel(spot.data.drink)}`,
     })),
   };
@@ -150,7 +151,7 @@ export function articleSchema(opts: {
     ...(opts.updatedDate ? { dateModified: opts.updatedDate.toISOString().slice(0, 10) } : {}),
     author: { '@id': abs('/#person') },
     publisher: { '@id': abs('/#person') },
-    mainEntityOfPage: abs(`/articles/${opts.slug}`),
+    mainEntityOfPage: abs(`/articles/${opts.slug}/`),
   };
 }
 

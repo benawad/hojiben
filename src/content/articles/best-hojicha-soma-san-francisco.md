@@ -9,18 +9,18 @@ spots, ranked here the same way they sit on the [main list](/).
 
 ## Shoji (A-)
 
-The best hojicha in SoMa so far. [Shoji](/spots/shoji) gets the roast right
+The best hojicha in SoMa so far. [Shoji](/spots/shoji/) gets the roast right
 without much fuss. Of everything I've had in the city, only Little Sweet over in
 Union Square edges it out.
 
 ## Paper Son Coffee (B+)
 
-[Paper Son](/spots/paper-son) came pre-mixed, which made me suspect, but the
+[Paper Son](/spots/paper-son/) came pre-mixed, which made me suspect, but the
 flavor held up. A solid B+ and an easy stop if you're already in the area.
 
 ## Cafe Okawari (C)
 
-[Cafe Okawari](/spots/cafe-okawari) is the weak one of the three. The hojicha
+[Cafe Okawari](/spots/cafe-okawari/) is the weak one of the three. The hojicha
 tastes a bit bitter, and the food is better than the drink. A C.
 
 ## The short version

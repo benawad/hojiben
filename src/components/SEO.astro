@@ -1,5 +1,6 @@
 ---
 import { SITE } from '../data/site';
+import { siteUrl } from '../lib/urls';
 import Analytics from './Analytics.astro';
 
 interface Props {
@@ -24,7 +25,7 @@ const {
   noindex = false,
 } = Astro.props;
 
-const canonical = new URL(path ?? Astro.url.pathname, SITE.url).toString();
+const canonical = siteUrl(path ?? Astro.url.pathname);
 const ogImageUrl = new URL(ogImage, SITE.url).toString();
 const fullTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
 

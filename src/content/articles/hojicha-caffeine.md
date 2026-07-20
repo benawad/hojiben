@@ -43,5 +43,5 @@ Most people can. It's low enough to work as an evening drink, which is most of
 its appeal. It isn't caffeine-free, though, so if you're very sensitive, keep it
 earlier or ask for it weak.
 
-New to it? Start with [what hojicha is](/articles/what-is-hojicha), or see the
+New to it? Start with [what hojicha is](/articles/what-is-hojicha/), or see the
 [ranked list](/).

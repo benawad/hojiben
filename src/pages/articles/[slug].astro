@@ -24,7 +24,7 @@ const dateStr = article.data.pubDate
 <Layout
   title={article.data.title}
   description={article.data.description}
-  path={`/articles/${article.id}`}
+  path={`/articles/${article.id}/`}
   type="article"
   crumb="field-notes"
   ogImage={`/og/articles/${article.id}.png`}
@@ -40,7 +40,7 @@ const dateStr = article.data.pubDate
     breadcrumbSchema([
       { name: 'Home', path: '/' },
       { name: 'Field Notes', path: '/articles' },
-      { name: article.data.title, path: `/articles/${article.id}` },
+      { name: article.data.title, path: `/articles/${article.id}/` },
     ]),
   ]}
 >

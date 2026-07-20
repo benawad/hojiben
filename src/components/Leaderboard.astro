@@ -19,7 +19,7 @@ const rows = limit ? spots.slice(0, limit) : spots;
     {
       rows.map((spot, i) => (
         <li>
-          <a class="row" href={`/spots/${spot.id}`} role="row">
+          <a class="row" href={`/spots/${spot.id}/`} role="row">
             <span class="rank mono">{String(i + 1).padStart(2, '0')}</span>
             <span class="mid">
               <span class="name">

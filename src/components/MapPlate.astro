@@ -29,7 +29,7 @@ const placed = spots
       {
         placed.map(({ spot, rank, x, y }) => (
           <li class="pin" data-top={rank <= 3 ? 'true' : undefined} style={`left:${x}%; top:${y}%`}>
-            <a href={`/spots/${spot.id}`}>
+            <a href={`/spots/${spot.id}/`}>
               <span class="dot" />
               <span class="tip mono">
                 {String(rank).padStart(2, '0')} · {spot.data.name}{spot.data.grade ? ` · ${spot.data.grade}` : ''}

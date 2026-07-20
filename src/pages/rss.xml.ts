@@ -12,14 +12,14 @@ export const GET: APIRoute = async (context) => {
     title: a.data.title,
     description: a.data.description,
     pubDate: a.data.pubDate,
-    link: `/articles/${a.id}`,
+    link: `/articles/${a.id}/`,
   }));
 
   const spotItems = spots.map((spot) => ({
     title: `${spot.data.name}: ${spot.data.grade ? `${spot.data.grade} ` : ''}${drinkLabel(spot.data.drink)}`,
     description: spot.data.verdict ?? `Hojicha at ${spot.data.name}, ${spot.data.neighborhood}.`,
     pubDate: spot.data.dateVisited,
-    link: `/spots/${spot.id}`,
+    link: `/spots/${spot.id}/`,
   }));
 
   const items = [...articleItems, ...spotItems].sort(

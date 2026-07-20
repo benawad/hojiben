@@ -43,6 +43,6 @@ caffeinated; hojicha is toasty, brown, and low in caffeine.**
 
 If you want energy and a grassy, umami punch, go matcha. If you want something
 cozy, toasty, and easy on the caffeine, go hojicha, then check the
-[best hojicha lattes in San Francisco](/articles/best-hojicha-san-francisco).
+[best hojicha lattes in San Francisco](/articles/best-hojicha-san-francisco/).
 
-New to the roasted stuff? Start with [what hojicha is](/articles/what-is-hojicha).
+New to the roasted stuff? Start with [what hojicha is](/articles/what-is-hojicha/).

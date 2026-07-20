@@ -13,11 +13,11 @@ const fmt = (d: Date) =>
 <Layout
   title="Hojicha Field Notes"
   description="Guides to hojicha: what it is, how it compares to matcha, and where to find the best in San Francisco."
-  path="/articles"
+  path="/articles/"
   crumb="field-notes"
   jsonLd={breadcrumbSchema([
     { name: 'Home', path: '/' },
-    { name: 'Field Notes', path: '/articles' },
+    { name: 'Field Notes', path: '/articles/' },
   ])}
 >
   <div class="head">
@@ -33,7 +33,7 @@ const fmt = (d: Date) =>
       {
         articles.map((a) => (
           <li>
-            <a href={`/articles/${a.id}`}>
+            <a href={`/articles/${a.id}/`}>
               <span class="n-date mono muted">{fmt(a.data.pubDate)}</span>
               <span class="n-body">
                 <span class="n-title">{a.data.title}</span>

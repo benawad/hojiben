@@ -31,17 +31,17 @@ for the top spot.
 
 ## What counts as "hojicha" here
 
-Three things, even though they share one leaderboard:
+Three things, with drinks ranked together and desserts handled as special items:
 
 1. **Hojicha latte**: the most common, and the easiest to get wrong.
 2. **Straight hojicha**: brewed tea, no milk. The purest test of leaf quality.
 3. **Hojicha soft serve / desserts**: a
-   [growing category in SF](/articles/hojicha-soft-serve-san-francisco).
+   [growing category in SF](/articles/hojicha-soft-serve-san-francisco/).
 
 ## New to hojicha?
 
 If you're just getting into it, start with
-[what hojicha actually is](/articles/what-is-hojicha) and
-[how it differs from matcha](/articles/hojicha-vs-matcha). Then learn
-[how to order it](/articles/how-to-order-hojicha) and work your way down the
+[what hojicha actually is](/articles/what-is-hojicha/) and
+[how it differs from matcha](/articles/hojicha-vs-matcha/). Then learn
+[how to order it](/articles/how-to-order-hojicha/) and work your way down the
 leaderboard.

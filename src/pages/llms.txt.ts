@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { getRankedDrinkSpots, getSpecialItems, drinkLabel } from '../lib/spots';
 import { SITE, AUTHOR, SOCIALS } from '../data/site';
+import { siteUrl } from '../lib/urls';
 
 // llms.txt — a plain-text index written for LLMs and AI agents.
 // Spec: https://llmstxt.org
@@ -12,7 +13,7 @@ export const GET: APIRoute = async () => {
     await getCollection('articles', ({ data }) => !data.draft)
   ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-  const abs = (p: string) => new URL(p, SITE.url).toString();
+  const abs = siteUrl;
 
   const lines: string[] = [];
   lines.push(`# ${SITE.name}`);
@@ -43,7 +44,7 @@ export const GET: APIRoute = async () => {
     const rating = spot.data.grade ? `Grade ${spot.data.grade}` : 'ungraded';
     const verdict = spot.data.verdict ? ` ${spot.data.verdict}` : '';
     lines.push(
-      `${i + 1}. [${spot.data.name}](${abs(`/spots/${spot.id}`)}): ${rating} · ${drinkLabel(spot.data.drink)} · ${spot.data.neighborhood}.${verdict}`
+      `${i + 1}. [${spot.data.name}](${abs(`/spots/${spot.id}/`)}): ${rating} · ${drinkLabel(spot.data.drink)} · ${spot.data.neighborhood}.${verdict}`
     );
   });
   lines.push('');
@@ -55,7 +56,7 @@ export const GET: APIRoute = async () => {
       const rating = spot.data.grade ? `Grade ${spot.data.grade}` : 'ungraded';
       const verdict = spot.data.verdict ? ` ${spot.data.verdict}` : '';
       lines.push(
-        `- [${spot.data.name}](${abs(`/spots/${spot.id}`)}): ${rating} · ${drinkLabel(spot.data.drink)} · ${spot.data.neighborhood}.${verdict}`
+        `- [${spot.data.name}](${abs(`/spots/${spot.id}/`)}): ${rating} · ${drinkLabel(spot.data.drink)} · ${spot.data.neighborhood}.${verdict}`
       );
     });
     lines.push('');
@@ -71,7 +72,7 @@ export const GET: APIRoute = async () => {
   lines.push('## Guides');
   lines.push('');
   articles.forEach((a) => {
-    lines.push(`- [${a.data.title}](${abs(`/articles/${a.id}`)}): ${a.data.description}`);
+    lines.push(`- [${a.data.title}](${abs(`/articles/${a.id}/`)}): ${a.data.description}`);
   });
   lines.push('');
 
@@ -81,7 +82,7 @@ export const GET: APIRoute = async () => {
     `- [Machine-readable spot data (JSON)](${abs('/spots.json')}): grades, neighborhoods, addresses, prices, and TikTok review URLs for every spot.`
   );
   lines.push(`- [Full leaderboard](${abs('/')})`);
-  lines.push(`- [About](${abs('/about')})`);
+  lines.push(`- [About](${abs('/about/')})`);
   lines.push('');
 
   lines.push('## Social');

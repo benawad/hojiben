@@ -25,8 +25,8 @@ shows up as the occasional swirl or seasonal flavor, if at all.
 ## Where my search stands
 
 Update: I tried the hojicha soft serve at
-[KISS of Matcha](/spots/kiss-of-matcha). It is very strong and intense in a good
+[KISS of Matcha](/spots/kiss-of-matcha/). It is very strong and intense in a good
 way, with excellent tea flavor, and it landed at A+ as the first soft-serve
-entry on the [main list](/).
+special item on the site.
 
-New to hojicha? Start with [what it is](/articles/what-is-hojicha).
+New to hojicha? Start with [what it is](/articles/what-is-hojicha/).

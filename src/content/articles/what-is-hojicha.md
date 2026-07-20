@@ -37,7 +37,7 @@ profile is exactly why it works so well as a **latte** and as **soft serve**.
 
 Yes, but lightly. The high-heat roasting reduces the caffeine, so hojicha has
 **less caffeine than matcha, sencha, or coffee**, which makes it a common
-afternoon or evening drink. See [how much caffeine hojicha has](/articles/hojicha-caffeine).
+afternoon or evening drink. See [how much caffeine hojicha has](/articles/hojicha-caffeine/).
 
 ## How to drink hojicha
 
@@ -45,5 +45,5 @@ afternoon or evening drink. See [how much caffeine hojicha has](/articles/hojich
 - **As a latte**: steamed milk smooths it into something cozy.
 - **As soft serve or in desserts**: increasingly common in San Francisco.
 
-Ready to taste it? See the [best hojicha in San Francisco](/articles/best-hojicha-san-francisco)
+Ready to taste it? See the [best hojicha in San Francisco](/articles/best-hojicha-san-francisco/)
 or jump to the [full leaderboard](/).
