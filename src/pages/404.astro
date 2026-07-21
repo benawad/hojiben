@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Page not found"
+  description="The requested page does not exist on Hoji Ben."
+  path="/404/"
+  crumb="404"
+  noindex
+>
+  <section class="not-found">
+    <p class="code mono muted">404</p>
+    <h1>Page not found</h1>
+    <p>The page you requested does not exist.</p>
+    <a href="/">Back to the hojicha index</a>
+  </section>
+</Layout>
+
+<style>
+  .not-found {
+    min-height: 60vh;
+    display: grid;
+    place-content: center;
+    justify-items: start;
+    padding: var(--space-5);
+  }
+  .code {
+    margin: 0 0 var(--space-2);
+    font-size: 0.72rem;
+  }
+  h1 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .not-found > p:not(.code) {
+    margin: var(--space-2) 0 var(--space-4);
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+  }
+  a {
+    color: var(--ink);
+    font-size: 0.82rem;
+    text-decoration: underline;
+    text-decoration-color: var(--line-strong);
+    text-underline-offset: 3px;
+  }
+</style>
