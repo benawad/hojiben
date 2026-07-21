@@ -2,7 +2,7 @@
 title: The Best Hojicha in San Francisco (2026, Ranked)
 description: Hoji Ben's ranked guide to the best hojicha lattes, straight hojicha, and hojicha soft serve in San Francisco. Tasted and letter-graded S to F, updated as new spots open.
 pubDate: 2026-06-20
-updatedDate: 2026-06-24
+updatedDate: 2026-07-21
 ---
 
 Nobody had ranked hojicha in San Francisco in one place, so I did. This is the

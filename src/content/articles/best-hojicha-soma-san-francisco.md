@@ -2,6 +2,7 @@
 title: The Best Hojicha in SoMa, San Francisco
 description: SoMa has the densest cluster of hojicha I've tried in San Francisco. Here's how Shoji, Paper Son, and Cafe Okawari rank.
 pubDate: 2026-06-24
+updatedDate: 2026-07-21
 ---
 
 SoMa is where I've tried the most hojicha in one neighborhood so far. Three
@@ -10,8 +11,7 @@ spots, ranked here the same way they sit on the [main list](/).
 ## Shoji (A-)
 
 The best hojicha in SoMa so far. [Shoji](/spots/shoji/) gets the roast right
-without much fuss. Of everything I've had in the city, only Little Sweet over in
-Union Square edges it out.
+without much fuss. It remains the best of the three SoMa spots on this list.
 
 ## Paper Son Coffee (B+)
 
