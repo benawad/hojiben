@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "hojiben-data",
+      "type": "skill-md",
+      "description": "Fetch and cite Hoji Ben's hojicha rankings, special items, spot metadata, videos, and LLM guide.",
+      "url": "https://hojiben.com/.well-known/agent-skills/hojiben-data/SKILL.md",
+      "digest": "sha256:8455b773d8345b9de7d5ee18654ec44c3add36defe5b056c713f50365cca702d"
+    }
+  ]
+}

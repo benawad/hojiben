@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": [
+    "/_astro/*",
+    "/og/*",
+    "/*.png",
+    "/*.jpg",
+    "/*.jpeg",
+    "/*.svg",
+    "/*.ico",
+    "/apple-touch-icon.png",
+    "/favicon*",
+    "/hojiben.jpg",
+    "/sf-map.jpg",
+    "/robots.txt",
+    "/rss.xml",
+    "/sitemap*.xml",
+    "/spots.json",
+    "/llms.txt",
+    "/.well-known/api-catalog",
+    "/.well-known/agent-skills/*"
+  ]
+}
