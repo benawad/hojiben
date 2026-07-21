@@ -1,0 +1,5 @@
+/
+  Link: </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json", </spots.json>; rel="service-desc"; type="application/json"; title="Hojicha spot data", </llms.txt>; rel="service-doc"; type="text/plain"; title="LLM guide", </about/>; rel="describedby"; type="text/html"; title="About Hoji Ben"
+
+/.well-known/api-catalog
+  Content-Type: application/linkset+json; charset=utf-8
